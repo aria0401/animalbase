@@ -66,7 +66,7 @@ function filterAnimalByTipe(allAnimals) {
       return true;
     }
   }
-  console.log(result);
+  // console.log(result);
   return result;
 }
 
@@ -183,31 +183,30 @@ function displayAnimal(animal) {
     .addEventListener("click", displayStar);
 
   function displayStar() {
-    if (animal.star === true) {
-      animal.star = false;
-      console.log("it is false");
-    } else {
+    document.querySelector(".alert").style.display = "block";
+
+    if (!animal.star && starts.length < 2) {
       animal.star = true;
-      console.log("it is true");
+      starts.push(animal);
+      if (starts.length === 2) {
+      }
+    } else if (animal.star && starts.length == 2) {
+      animal.star = false;
+      starts.splice(animal, 1);
+    }
+
+    console.log("starts is:", starts);
+
+    let status = starts.filter(checkStatus);
+    // console.log("status is:", status);
+
+    function checkStatus() {
+      if (animal.star === true) {
+        return true;
+      }
     }
 
     buildList();
-
-    // if (!animal.star && starts.length < 2) {
-    //   animal.star = true;
-    //   starts.push(animal);
-    //   console.log("acabas de poner un animal");
-    //   if (starts.length === 2) {
-    //     console.log("no puedes votar sino removes a alguien primero");
-    //   }
-    // } else if (animal.star && starts.length == 2) {
-    //   console.log("no puedes votar sino removes a alguien primero");
-    //   animal.star = false;
-    //   starts.pop(animal);
-    //   console.log("acabas de quitar un animal");
-    // }
-
-    // console.log("starts is:", starts);
   }
 
   // append clone to list

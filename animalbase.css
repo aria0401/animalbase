@@ -38,3 +38,7 @@
   cursor: pointer;
   min-width: 2em;
 }
+
+.alert {
+  display: none;
+}
