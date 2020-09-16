@@ -10,7 +10,18 @@ const Animal = {
   desc: "-unknown animal-",
   type: "",
   age: 0,
-  star: "☆",
+  star: false,
+  // toggleStar() {
+  //   if (!this.star) {
+  //     // this.textContent = "⭐";
+  //     this.star = true;
+  //     console.log("is false");
+  //   } else {
+  //     this.star = false;
+  //     console.log("is true");
+  //     // this.textContent = "☆";
+  //   }
+  // },
 };
 
 const settings = {
@@ -119,10 +130,10 @@ async function loadJSON() {
 function prepareObjects(jsonData) {
   allAnimals = jsonData.map(preapareObject);
 
-  // buildList(); //not yet
+  buildList(); //not yet
 
   // TODO: This might not be the function we want to call first
-  displayList(allAnimals);
+  // displayList(allAnimals);
 }
 
 function preapareObject(jsonObject) {
@@ -160,7 +171,11 @@ function displayAnimal(animal) {
   clone.querySelector("[data-field=type]").textContent = animal.type;
   clone.querySelector("[data-field=age]").textContent = animal.age;
 
-  clone.querySelector("[data-field=star]").textContent = animal.star;
+  if (animal.star === true) {
+    clone.querySelector("[data-field=star]").textContent = "⭐";
+  } else {
+    clone.querySelector("[data-field=star]").textContent = "☆";
+  }
 
   // TODO: Add event listener to click on star
   clone
@@ -168,13 +183,35 @@ function displayAnimal(animal) {
     .addEventListener("click", displayStar);
 
   function displayStar() {
-    if (this.textContent === animal.star) {
-      this.textContent = "⭐";
+    if (animal.star === true) {
+      animal.star = false;
+      console.log("it is false");
     } else {
-      this.textContent = animal.star;
+      animal.star = true;
+      console.log("it is true");
     }
+
+    buildList();
+
+    // if (!animal.star && starts.length < 2) {
+    //   animal.star = true;
+    //   starts.push(animal);
+    //   console.log("acabas de poner un animal");
+    //   if (starts.length === 2) {
+    //     console.log("no puedes votar sino removes a alguien primero");
+    //   }
+    // } else if (animal.star && starts.length == 2) {
+    //   console.log("no puedes votar sino removes a alguien primero");
+    //   animal.star = false;
+    //   starts.pop(animal);
+    //   console.log("acabas de quitar un animal");
+    // }
+
+    // console.log("starts is:", starts);
   }
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
+
+const starts = [];
